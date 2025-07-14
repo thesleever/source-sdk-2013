@@ -1908,10 +1908,16 @@ void CGameMovement::WalkMove( void )
 
 	CHandle< CBaseEntity > oldground;
 	oldground = player->GetGroundEntity();
+	float factor = sv_maxspeed.GetFloat();
+
+	if (mv->m_nButtons & IN_SPEED)
+	{
+		factor /= 2.0f;
+	}
 	
 	// Copy movement amounts
-	fmove = mv->m_flForwardMove;
-	smove = mv->m_flSideMove;
+	fmove = mv->m_flForwardMove * factor;
+	smove = mv->m_flSideMove * factor;
 
 	// Zero out z components of movement vectors
 	if ( g_bMovementOptimizations )
