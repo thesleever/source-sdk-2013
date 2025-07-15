@@ -1,6 +1,6 @@
 "GameInfo"
 {
-	game					"idk"
+	game					"Frog Fortress 2"
 	type 					multiplayer_only
 	nomodels				1
 	nohimodel 				1
