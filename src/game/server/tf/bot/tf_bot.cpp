@@ -3672,6 +3672,7 @@ bool CTFBot::IsQuietWeapon( CTFWeaponBase *weapon ) const
 		case TF_WEAPON_COMPOUND_BOW:
 		case TF_WEAPON_SWORD:
 		case TF_WEAPON_CROSSBOW:
+		case TF_WEAPON_UNARMED:
 			return true;
 		};
 	}

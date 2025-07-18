@@ -4006,7 +4006,7 @@ void C_TFPlayer::Spawn( void )
 {
 	m_AttributeManager.SetPlayer( this );
 	m_AttributeList.SetManager( &m_AttributeManager );
-
+	Msg("what's up homie\n");
 	BaseClass::Spawn();
 
 	/*

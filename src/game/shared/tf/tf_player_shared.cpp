@@ -1854,6 +1854,9 @@ void CTFPlayerShared::OnConditionAdded( ETFCond eCond )
 		OnAddHalloweenHellHeal();
 		break;
 
+	case TF_COND_UNMASKED:
+		OnAddUnmasked();
+		break;
 
 	default:
 		break;
@@ -2198,6 +2201,9 @@ void CTFPlayerShared::OnConditionRemoved( ETFCond eCond )
 		OnRemoveHalloweenHellHeal();
 		break;
 
+	case TF_COND_UNMASKED:
+		OnRemoveUnmasked();
+		break;
 
 	default:
 		break;
@@ -3770,6 +3776,46 @@ void CTFPlayerShared::OnRemoveHalloweenHellHeal( void )
 {
 #ifdef GAME_DLL
 	StopHealing( m_pOuter );
+#endif // SERVER_DLL
+}
+
+
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
+void CTFPlayerShared::OnAddUnmasked(void)
+{
+	Assert(InCond(TF_COND_UNMASKED));
+
+#ifdef GAME_DLL
+	m_pOuter->RemoveAllWeapons();
+	
+	CBaseCombatWeapon* pWeapon = m_pOuter->Weapon_Create("tf_weapon_unarmed");
+	
+	if (pWeapon)
+	{
+		m_pOuter->Weapon_Equip(pWeapon);
+		
+		static CSchemaAttributeDefHandle pAttrDef_NoJump("no_jump");
+		static CSchemaAttributeDefHandle pAttrDef_NoAttack("no_attack");
+
+		pWeapon->GetAttributeList()->SetRuntimeAttributeValue(pAttrDef_NoJump, 1.f);
+		pWeapon->GetAttributeList()->SetRuntimeAttributeValue(pAttrDef_NoAttack, 1.f);
+		
+
+		//m_pOuter->EquipWearable() // im stupid idk how to use this
+	}
+#endif // SERVER_DLL
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
+void CTFPlayerShared::OnRemoveUnmasked(void)
+{
+	Msg("Bye");
+#ifdef GAME_DLL
+	m_pOuter->GiveDefaultItems();
 #endif // SERVER_DLL
 }
 
@@ -12176,7 +12222,7 @@ bool CTFPlayer::CanAttack( int iCanAttackFlags )
 bool CTFPlayer::CanJump() const
 {
 	// Cannot jump while taunting
-	if ( m_Shared.InCond( TF_COND_TAUNTING ) )
+	if ( m_Shared.InCond( TF_COND_TAUNTING ) ) // let's pretend we can
 		return false;
 
 	CTFWeaponBase *pActiveWeapon = m_Shared.GetActiveTFWeapon();

@@ -18013,7 +18013,7 @@ void CTFPlayer::Taunt( taunts_t iTauntIndex, int iTauntConcept )
 			m_flTauntAttackTime = gpGlobals->curtime + 1.8;
 			m_iTauntAttack = TAUNTATK_HEAVY_HIGH_NOON;
 		}
-		else if ( pActiveWeapon && pActiveWeapon->GetWeaponID() == TF_WEAPON_FISTS )
+		else if ( pActiveWeapon && pActiveWeapon->GetWeaponID() == TF_WEAPON_FISTS)
 		{
 			CTFFists *pFists = dynamic_cast<CTFFists*>(pActiveWeapon);
 			if ( pFists && pFists->GetFistType() == FISTTYPE_RADIAL_BUFF )

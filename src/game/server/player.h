@@ -231,7 +231,7 @@ public:
 	virtual CBotCmd GetLastUserCommand();
 
 private:
-	CBasePlayer *m_pParent; 
+	CBasePlayer *m_pParent;
 };
 
 
@@ -923,6 +923,7 @@ private:
 
 	Activity				m_Activity;
 	float					m_flLastObjectiveTime;				// Last curtime player touched/killed something the gamemode considers an objective
+	RealTimeCountdownTimer	m_timerHoldUp;
 
 protected:
 

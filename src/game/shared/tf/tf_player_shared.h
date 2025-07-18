@@ -908,6 +908,9 @@ private:
 	void OnAddHalloweenHellHeal( void );
 	void OnRemoveHalloweenHellHeal( void );
 
+	void OnAddUnmasked(void);
+	void OnRemoveUnmasked(void);
+
 	float GetCritMult( void );
 
 #ifdef GAME_DLL

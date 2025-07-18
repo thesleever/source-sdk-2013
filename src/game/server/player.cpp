@@ -75,6 +75,7 @@
 #endif
 
 // NVNT haptic utils
+#include "tf_player.h"
 #include "haptics/haptic_utils.h"
 
 #ifdef HL2_DLL
@@ -3946,6 +3947,7 @@ void CBasePlayer::HandleFuncTrain(void)
 	}
 }
 
+const hudtextparms_t textparams;
 
 void CBasePlayer::PreThink(void)
 {						
@@ -3991,6 +3993,39 @@ void CBasePlayer::PreThink(void)
 		// If on a ladder, jump off the ladder
 		// else Jump
 		Jump();
+	}
+
+	if (m_nButtons & IN_UNMASK)
+	{
+		CTFPlayer* ply = ToTFPlayer(this);
+		if (ply && ply->ScriptInCond(TF_COND_UNMASKED))
+		{
+			if (!m_timerHoldUp.HasStarted())
+			{
+				Msg("Masking player %s in %f\n", ply->GetPlayerName(), 2.f);
+				m_timerHoldUp.Start(2.f);
+			}
+			
+			if (m_timerHoldUp.IsElapsed())
+			{
+				Msg("Unmasking player %s\n", ply->GetPlayerName());
+				ply->ScriptRemoveCondEx(TF_COND_UNMASKED, true);
+				m_timerHoldUp.Invalidate();
+			}
+			Msg("Timer: %f\n", m_timerHoldUp.GetElapsedTime());
+		}
+		return;
+	}
+
+	else
+	{
+		if (m_timerHoldUp.HasStarted())
+		{
+			m_timerHoldUp.Invalidate();
+			Msg("Unpressed. Resetting the timer\n");
+			return;
+		}
+		return;
 	}
 
 	// If trying to duck, already ducked, or in the process of ducking
