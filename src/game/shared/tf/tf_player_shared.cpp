@@ -3788,7 +3788,7 @@ void CTFPlayerShared::OnAddUnmasked(void)
 	Assert(InCond(TF_COND_UNMASKED));
 
 #ifdef GAME_DLL
-	m_pOuter->RemoveAllWeapons();
+	m_pOuter->RemoveAllWeapons(true);
 	
 	CBaseCombatWeapon* pWeapon = m_pOuter->Weapon_Create("tf_weapon_unarmed");
 	

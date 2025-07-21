@@ -20520,7 +20520,7 @@ void CTFPlayer::SaveLastWeaponSlot( void )
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-void CTFPlayer::RemoveAllWeapons()
+void CTFPlayer::RemoveAllWeapons(bool keepWearables)
 {
 	// Base class RemoveAllWeapons() doesn't remove them properly.
 	// (doesn't call unequip, or remove immediately. Results in incorrect provision
@@ -20538,15 +20538,19 @@ void CTFPlayer::RemoveAllWeapons()
 
 	m_Shared.RemoveDisguiseWeapon();
 
-	// Remove all our wearables
-	for ( int wbl = m_hMyWearables.Count()-1; wbl >= 0; wbl-- )
+	if ( !keepWearables )
 	{
-		CEconWearable *pWearable = m_hMyWearables[wbl];
-		if ( pWearable )
+		// Remove all our wearables
+		for (int wbl = m_hMyWearables.Count() - 1; wbl >= 0; wbl--)
 		{
-			RemoveWearable( pWearable );
+			CEconWearable* pWearable = m_hMyWearables[wbl];
+			if (pWearable)
+			{
+				RemoveWearable(pWearable);
+			}
 		}
 	}
+
 }
 
 //-----------------------------------------------------------------------------

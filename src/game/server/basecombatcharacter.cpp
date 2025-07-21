@@ -2350,7 +2350,7 @@ void CBaseCombatCharacter::Weapon_HandleAnimEvent( animevent_t *pEvent )
 	}
 }
 
-void CBaseCombatCharacter::RemoveAllWeapons()
+void CBaseCombatCharacter::RemoveAllWeapons(bool keepWearables)
 {
 	ClearActiveWeapon();
 	for (int i = 0; i < MAX_WEAPONS; i++)

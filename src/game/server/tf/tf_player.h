@@ -223,7 +223,7 @@ public:
 	int					GetPassiveWeapons( CUtlVector<CTFWeaponBase*>& vecOut );
 	bool				IsActiveTFWeapon( const CSchemaItemDefHandle &weaponHandle ) const;
 	bool				IsActiveTFWeapon( CEconItemDefinition *weaponHandle ) const;
-	virtual void		RemoveAllWeapons();
+	virtual void		RemoveAllWeapons(bool keepWearables = false);
 	virtual void		Weapon_Equip( CBaseCombatWeapon *pWeapon ) OVERRIDE;			// Adds weapon to player
 
 	void				SaveMe( void );
